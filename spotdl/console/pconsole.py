@@ -27,7 +27,7 @@ def pconsole(
     """
     
     # Get settings from downloader
-    use_artist_album_structure = downloader.settings.get("pconsole_struct", False)
+    use_artist_album_structure = downloader.settings.get("structured", False)
     replace_spaces = downloader.settings.get("replace_spaces", False)
     
     # Store original settings to restore later

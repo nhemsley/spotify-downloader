@@ -335,10 +335,10 @@ def parse_output_options(parser: _ArgumentGroup):
     - parser: The argument parser to add the options to.
     """
     
-    # Add pconsole structure option
+    # Add structured option
     parser.add_argument(
         "-s",
-        "--pconsole-struct",
+        "--structured",
         action="store_const",
         const=True,
         help="Use artist/album folder structure for downloads in pconsole mode",
