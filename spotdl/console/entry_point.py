@@ -11,6 +11,7 @@ import time
 
 from spotdl.console.download import download
 from spotdl.console.meta import meta
+from spotdl.console.pconsole import pconsole
 from spotdl.console.save import save
 from spotdl.console.sync import sync
 from spotdl.console.url import url
@@ -32,6 +33,7 @@ OPERATIONS = {
     "save": save,
     "meta": meta,
     "url": url,
+    "pconsole": pconsole,
 }
 
 logger = logging.getLogger(__name__)
@@ -157,10 +159,18 @@ def entry_point():
     try:
         # Pick the operation to perform
         # based on the name and run it!
-        OPERATIONS[arguments.operation](
-            query=arguments.query,
-            downloader=downloader,
-        )
+        if arguments.operation == "pconsole":
+            # For pconsole, query is optional since we read from stdin
+            query = arguments.query if hasattr(arguments, "query") and arguments.query else []
+            OPERATIONS[arguments.operation](
+                query=query,
+                downloader=downloader,
+            )
+        else:
+            OPERATIONS[arguments.operation](
+                query=arguments.query,
+                downloader=downloader,
+            )
     except Exception as exc:
         if downloader_settings["save_errors"]:
             with open(

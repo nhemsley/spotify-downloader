@@ -353,6 +353,8 @@ DOWNLOADER_OPTIONS: DownloaderOptions = {
     "create_skip_file": False,
     "respect_skip_file": False,
     "sync_remove_lrc": False,
+    "pconsole_struct": False,
+    "replace_spaces": False,
 }
 
 WEB_OPTIONS: WebOptions = {

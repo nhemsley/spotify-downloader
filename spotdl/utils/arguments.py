@@ -16,7 +16,7 @@ from spotdl.utils.logging import NAME_TO_LEVEL
 
 __all__ = ["OPERATIONS", "SmartFormatter", "parse_arguments"]
 
-OPERATIONS = ["download", "save", "web", "sync", "meta", "url"]
+OPERATIONS = ["download", "save", "web", "sync", "meta", "url", "pconsole"]
 
 
 class SmartFormatter(argparse.HelpFormatter):
@@ -60,14 +60,15 @@ def parse_main_options(parser: _ArgumentGroup):
             "web: Starts a web interface to simplify the download process.\n"
             "sync: Removes songs that are no longer present, downloads new ones\n"
             "meta: Update your audio files with metadata\n"
-            "url: Get the download URL for songs\n\n"
+            "url: Get the download URL for songs\n"
+            "pconsole: Start an interactive REPL-style console for downloading\n\n"
         ),
     )
 
     # Add query argument
     query = parser.add_argument(
         "query",
-        nargs="+",
+        nargs="*",  # Changed from "+" to "*" to make it optional for pconsole
         type=str,
         help=(
             "N|Spotify/YouTube URL for a song/playlist/album/artist/etc. to download.\n\n"
@@ -84,6 +85,7 @@ def parse_main_options(parser: _ArgumentGroup):
             "downloading/matching youtube urls.\n"
             "When using youtube url without spotify url, "
             "you won't be able to use `--fetch-albums` option.\n\n"
+            "Note: For pconsole mode, query is optional and URLs are read from stdin.\n\n"
         ),
     )
 
@@ -332,6 +334,24 @@ def parse_output_options(parser: _ArgumentGroup):
     ### Arguments
     - parser: The argument parser to add the options to.
     """
+    
+    # Add pconsole structure option
+    parser.add_argument(
+        "-s",
+        "--pconsole-struct",
+        action="store_const",
+        const=True,
+        help="Use artist/album folder structure for downloads in pconsole mode",
+    )
+    
+    # Add option to replace spaces with hyphens
+    parser.add_argument(
+        "-r",
+        "--replace-spaces",
+        action="store_const",
+        const=True,
+        help="Replace spaces with hyphens in filenames in pconsole mode",
+    )
 
     # Add output format argument
     parser.add_argument(

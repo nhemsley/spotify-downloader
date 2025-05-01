@@ -89,6 +89,8 @@ class DownloaderOptions(TypedDict):
     create_skip_file: Optional[bool]
     respect_skip_file: Optional[bool]
     sync_remove_lrc: Optional[bool]
+    pconsole_struct: Optional[bool]
+    replace_spaces: Optional[bool]
 
 
 class WebOptions(TypedDict):
@@ -185,6 +187,8 @@ class DownloaderOptionalOptions(TypedDict, total=False):
     create_skip_file: Optional[bool]
     respect_skip_file: Optional[bool]
     sync_remove_lrc: Optional[bool]
+    pconsole_struct: Optional[bool]
+    replace_spaces: Optional[bool]
 
 
 class WebOptionalOptions(TypedDict, total=False):
