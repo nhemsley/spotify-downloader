@@ -315,8 +315,8 @@ def convert(
         else:
             arguments.extend(FFMPEG_FORMATS[output_format])
 
-    # Add bitrate if specified
-    if bitrate:
+    # Add bitrate if specified (skip if bitrate is "copy" - just use default encoding)
+    if bitrate and bitrate != "copy":
         # Check if bitrate is an integer
         # if it is then use it as variable bitrate
         if bitrate.isdigit():
